@@ -37,20 +37,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.raywenderlich.android.droidwiki.R
+import com.raywenderlich.android.droidwiki.application.WikiApplication
 import com.raywenderlich.android.droidwiki.model.WikiHomepage
 import com.raywenderlich.android.droidwiki.utils.start
 import com.raywenderlich.android.droidwiki.utils.parseHtml
 import kotlinx.android.synthetic.main.activity_homepage.*
 import com.raywenderlich.android.droidwiki.ui.search.SearchActivity
 import com.raywenderlich.android.droidwiki.utils.errorDialog
+import javax.inject.Inject
 
 class HomepageActivity : Activity(), HomepageView {
 
-  private val presenter: HomepagePresenter = HomepagePresenterImpl()
+  //@Inject belongs to javax annotation not Dagger.
+  @Inject lateinit var presenter: HomepagePresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_homepage)
+
+    (application as WikiApplication).wikiComponent.inject(this)
 
     presenter.setView(this)
     presenter.loadHomepage()
@@ -95,7 +100,7 @@ class HomepageActivity : Activity(), HomepageView {
     }
   }
 
-  override fun displayError(error: String?) {
+  override fun displayError(error: String) {
     Log.e("ERROR", error)
     runOnUiThread {
       R.string.error.errorDialog(this)

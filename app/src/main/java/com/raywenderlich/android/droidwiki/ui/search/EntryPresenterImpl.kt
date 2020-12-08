@@ -54,21 +54,21 @@ class EntryPresenterImpl : EntryPresenter {
   override fun getEntry(query: String) {
     entryView.displayLoading()
     wiki.search(query).enqueue(object : Callback {
-      override fun onResponse(call: Call?, response: Response?) {
+      override fun onResponse(call: Call, response: Response) {
         entryView.dismissLoading()
         //Everything is ok, show the result if not null
-        if (response?.isSuccessful == true) {
+        if (response?.isSuccessful) {
           SearchResult(response).list?.let {
             entryView.displayEntries(it)
           }
         } else {
-          entryView.displayError(response?.message())
+          entryView.displayError(response?.message)
         }
       }
 
-      override fun onFailure(call: Call?, t: IOException?) {
-        entryView.displayError(t?.message)
-        t?.printStackTrace()
+      override fun onFailure(call: Call, e: IOException) {
+        entryView.displayError(e?.message)
+        e?.printStackTrace()
       }
     })
 

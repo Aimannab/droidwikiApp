@@ -39,5 +39,5 @@ interface HomepageView {
 
   fun displayHomepage(result: WikiHomepage)
 
-  fun displayError(error: String?)
+  fun displayError(error: String)
 }

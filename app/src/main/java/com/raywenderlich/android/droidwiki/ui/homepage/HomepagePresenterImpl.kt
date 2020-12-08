@@ -54,24 +54,24 @@ class HomepagePresenterImpl : HomepagePresenter {
   override fun loadHomepage() {
     homepageView.displayLoading()
     homepage.get().enqueue(object : Callback {
-      override fun onResponse(call: Call?, response: Response?) {
+      override fun onResponse(call: Call, response: Response) {
         homepageView.dismissLoading()
-        if (response?.isSuccessful == true) {
+        if (response.isSuccessful) {
           response.let {
             HomepageResult(it).homepage?.let {
               homepageView.displayHomepage(it)
             } ?: run {
-              homepageView.displayError(response.message())
+              homepageView.displayError(response.message)
             }
           }
         } else {
-          homepageView.displayError(response?.message())
+          homepageView.displayError(response.message)
         }
       }
 
-      override fun onFailure(call: Call?, t: IOException?) {
-        homepageView.displayError(t?.message)
-        t?.printStackTrace()
+      override fun onFailure(call: Call, e: IOException) {
+        e.message?.let { homepageView.displayError(it) }
+        e.printStackTrace()
       }
     })
   }

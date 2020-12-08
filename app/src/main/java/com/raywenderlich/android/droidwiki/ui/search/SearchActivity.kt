@@ -118,7 +118,7 @@ class SearchActivity : Activity(), EntryView {
   }
 
   override fun displayError(error: String?) {
-    Log.e("ERROR", error)
+    error?.let { Log.e("ERROR", it) }
     R.string.error.errorDialog(this)
   }
 }
