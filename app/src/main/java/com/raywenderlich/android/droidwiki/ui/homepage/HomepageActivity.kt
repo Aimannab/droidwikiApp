@@ -49,7 +49,8 @@ import javax.inject.Inject
 class HomepageActivity : Activity(), HomepageView {
 
   //@Inject belongs to javax annotation not Dagger.
-  @Inject lateinit var presenter: HomepagePresenter
+  @Inject
+  lateinit var presenter: HomepagePresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
