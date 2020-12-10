@@ -15,6 +15,16 @@ buildscript {
   }
 }
 
+plugins {
+  id("scabbard.gradle") version "0.4.0"
+}
+
+// Visualizes Dagger 2 dependency graph
+//https://arunkumar9t2.github.io/scabbard/
+scabbard {
+  enabled = true
+}
+
 allprojects {
   repositories {
     jcenter()
