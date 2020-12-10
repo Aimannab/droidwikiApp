@@ -8,7 +8,12 @@ import javax.inject.Singleton
 @Singleton
 //Takes a list of modules as an input.
 //It is used to connect objects to their dependencies.
-@Component(modules = [AppModule::class, PresenterModule::class])
+@Component(modules = [
+    AppModule::class,
+    PresenterModule::class,
+    NetworkModule::class,
+    WikiModule::class])
+
 interface AppComponent {
 
     //Tells Dagger that HomepageActivity will require injection from AppComponent
